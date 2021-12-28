@@ -1,0 +1,92 @@
+[{
+    "id": "bf2af18b.4755f",
+    "type": "tab",
+    "label": "AWS",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "c1729878.a54958",
+    "type": "cognito",
+    "z": "bf2af18b.4755f",
+    "name": "Create user",
+    "username": "",
+    "password": "",
+    "pool": "",
+    "client": "",
+    "attributes": "",
+    "x": 290,
+    "y": 177,
+    "wires": [
+        ["5423cf83.48eca8"]
+    ]
+}, {
+    "id": "17419950.e7314f",
+    "type": "inject",
+    "z": "bf2af18b.4755f",
+    "name": "",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 177.5,
+    "y": 39,
+    "wires": [
+        ["dcb657a1.afc91"]
+    ]
+}, {
+    "id": "5423cf83.48eca8",
+    "type": "debug",
+    "z": "bf2af18b.4755f",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 428,
+    "y": 71,
+    "wires": []
+}, {
+    "id": "dcb657a1.afc91",
+    "type": "function",
+    "z": "bf2af18b.4755f",
+    "name": "set user details",
+    "func": "msg.username = \"testuser6@test.com\"\nmsg.password = \"Pa$$word1\"\nmsg.poolId = \"us-east-1_7BLkNEX0A\"\nmsg.clientId = \"r0bdqiq1dh4v8qnf1dhcnmis1\"\nmsg.attr = '[{\"name\":\"email\", \"value\":\"testuser6@test.com\"}]'\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 207,
+    "y": 111,
+    "wires": [
+        ["c1729878.a54958"]
+    ]
+}, {
+    "id": "a9b01ce0.6c0398",
+    "type": "catch",
+    "z": "bf2af18b.4755f",
+    "name": "",
+    "scope": null,
+    "uncaught": false,
+    "x": 189,
+    "y": 326,
+    "wires": [
+        ["110f3a71.f3970e"]
+    ]
+}, {
+    "id": "110f3a71.f3970e",
+    "type": "debug",
+    "z": "bf2af18b.4755f",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "error",
+    "targetType": "msg",
+    "x": 360,
+    "y": 251,
+    "wires": []
+}]

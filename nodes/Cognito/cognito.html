@@ -1,0 +1,107 @@
+<script type="text/javascript">
+    function textAreaTab(){
+        $("textarea").keydown(function(e) {
+            if(e.keyCode === 9) { // tab was pressed
+                // get caret position/selection
+                var start = this.selectionStart;
+                var end = this.selectionEnd;
+
+                var $this = $(this);
+                var value = $this.val();
+
+                // set textarea value to: text before caret + tab + text after caret
+                $this.val(value.substring(0, start)
+                            + "\t"
+                            + value.substring(end));
+
+                // put caret at right position again (add one for the tab)
+                this.selectionStart = this.selectionEnd = start + 1;
+
+                // prevent the focus lose
+                e.preventDefault();
+            }
+        });
+    }
+
+
+     RED.nodes.registerType('cognito', {
+        category: 'AWS',
+        defaults: {
+            name: {value:""},
+            username: {value:""},
+            password: { value: "" },
+            pool: {value:""},
+            client: {value:""},
+            attributes: {value:""}                       
+        },
+        label: function () {
+            return this.name || "cognito"
+        },
+        inputs: 1,
+        outputs: 1,        
+        color: 'lightblue',        
+        icon: 'arrow-in.png',
+        oneditprepare: function(){
+            textAreaTab();
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="cognito">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-list"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-user"></i> Username</label>
+        <input type="text" id="node-input-username">
+    </div>
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-key"></i> Password</label>
+        <input type="text" id="node-input-password">
+    </div>
+    <div class="form-row">
+        <label for="node-input-pool"><i class="fa fa-users"></i> Pool ID</label>
+        <input type="text" id="node-input-pool">
+    </div>
+    <div class="form-row">
+        <label for="node-input-client"><i class="fa fa-certificate"></i> Client ID</label>
+        <input type="text" id="node-input-client">
+    </div>
+    <div class="form-row">
+        <label for="node-input-attributes"><i class="fa fa-wrench"></i> Attributes</label><br/>       
+        <textArea id="node-input-attributes" style="width:90%;height:250px;margin-left:5%;"></textarea>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="cognito">
+    <p>Create a new user in AWS-Cognito using user sign-in option.</p>
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>username: <span class="property-type">string</span></dt>
+            <dd>Sign-in username of the User, which is email.</dd>
+            <dd><code>msg.username</code> can be used by leaving username field empty in node.</dd><br/>
+            <dt>password: <span class="property-type">string</span></dt>
+            <dd>Sign-in password of the User, which is email.</dd>
+            <dd><code>msg.password</code> can be used by leaving password field empty in node.</dd><br/>
+            <dt>pool: <span class="property-type">string</span></dt>
+            <dd>Pool ID of the group where user has to be added/created.</dd>
+            <dd><code>msg.poolId</code> can be used by leaving Pool ID field empty in node.</dd><br/>
+            <dt>client: <span class="property-type">string</span></dt>
+            <dd>Any of Client ID of the group where user has to be added/created.</dd>
+            <dd><code>msg.clientId</code> can be used by leaving Client ID field empty in node.</dd><br/>
+            <dt>attributes: <span class="property-type">string with Array</span></dt>
+            <dd>Additional attributes that needs to be added (required/optional) attributes.</dd>
+            <dd><code>msg.attr</code> can be used by leaving Attributes field empty in node.</dd>
+            <dd>Format of <code>msg.attr</code>: [{"name":"email", "value":"test_user@test.com"}]</dd>
+        </dl>
+
+    <h3>Outputs</h3>
+        <dl class="message-properties">
+            <dt>msg.payload: <span class="property-type">Object</span></dt>
+            <dd>The user object returned during sign-in.</dd><br/>
+            <dt>msg.error: <span class="property-type">object</span></dt>
+            <dd><code>msg.error</code> Exception occured during creation of the user.</dd>
+        </dl>
+
+ </script>
