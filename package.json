@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-cng-aws",
+  "name": "node-red-contrib-aws-cognito",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -16,7 +16,7 @@
       "cognito": "nodes/Cognito/cognito.js"
     }
   },
-  "author": "",
+  "author": "chandrakanth.chintada@gmail.com",
   "license": "ISC",
   "dependencies": {
     "amazon-cognito-identity-js": "^3.1.2",
